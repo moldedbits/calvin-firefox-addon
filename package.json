@@ -1,0 +1,16 @@
+{
+  "title": "Calvin TV Queue Addon",
+  "name": "calvin-addon",
+  "version": "0.0.1",
+  "description": "Slack to TV display add-on",
+  "main": "index.js",
+  "author": "Amit Kumar Swami",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "jetpack"
+  ]
+}
