@@ -3,7 +3,7 @@ var { getTabForId, setTabURL } = require ("sdk/tabs/utils");
 var tabID = "calvin-bot-tab";
 var tabs = require("sdk/tabs");
 var { setInterval } = require("sdk/timers");
-var delay = 1000 * 60
+var delay = 1000 * 60 * 10
 
 tabs.open({
   url: "http://www.moldedbits.com",
