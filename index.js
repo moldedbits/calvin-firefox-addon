@@ -3,18 +3,12 @@ var { getTabForId, setTabURL } = require ("sdk/tabs/utils");
 var tabID = "calvin-bot-tab";
 var tabs = require("sdk/tabs");
 var { setInterval } = require("sdk/timers");
+var buttons = require('sdk/ui/button/action');
+var panels = require("sdk/panel");
 var delay = 1000 * 60 * 10
+var isShowing = false;
 
-tabs.open({
-  url: "http://www.moldedbits.com",
-  onReady: function onReady(tab) {
-  },
-  isPinned: true,
-  onActivate: function onActivate(tab) {
-    reloadURLFromBackend()
-    tabID = tab.id;
-  }
-});
+
 
 function reloadURLFromBackend() {
     var Request = require("sdk/request").Request;
@@ -32,6 +26,39 @@ function openRandomURL(url) {
   setTabURL(getTabForId(tabID), url)
 }
 
-setInterval(function() {
-  reloadURLFromBackend()
-}, delay)
+function startCavin() {
+  tabs.open({
+    url: "http://www.moldedbits.com",
+    onReady: function onReady(tab) {
+    },
+    isPinned: false,
+    onActivate: function onActivate(tab) {
+      reloadURLFromBackend()
+      tabID = tab.id;
+    }
+  });
+
+  setInterval(function() {
+    reloadURLFromBackend()
+  }, delay);
+}
+var button = buttons.ActionButton({
+  id: "cavin-addon",
+  label: "Load Cavin add-on",
+  icon: {
+    "16": "resource://@calvin-addon/globe-16.png",
+    "32": "resource://@calvin-addon/globe-32.png",
+    "64": "resource://@calvin-addon/globe-48.png"
+  },
+  onClick: handleClick
+});
+
+function handleClick(state) {
+  if(isShowing == false || getTabForId(tabID) == null) {
+    startCavin();
+    isShowing = true;
+  }
+  else {
+    reloadURLFromBackend();
+  }
+}
